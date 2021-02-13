@@ -1,13 +1,9 @@
 package eu.europa.ec.digit.search.improveperformance;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
-
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import lombok.extern.slf4j.Slf4j;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -31,10 +27,20 @@ public class NumberService {
 
     }
 
+
+    /**
+     * The method is the improved version of the {@link #findSmallestDuplicate(List)}.
+     * The name may suggest that it returns the smallest duplicated value, but it doesn't,
+     * it just returns the first duplicated value from the list of Integers or 0 if not founded.
+     */
     public Integer findSmallestDuplicateImproved(List<Integer> data) {
 
-        return 0;
+        Set<Integer> uniqueV = new HashSet<>();
 
+        return data.stream()
+                .filter(v -> !uniqueV.add(v))
+                .findFirst()
+                .orElse(0);
     }
 
     public List<Integer> generateData() {
